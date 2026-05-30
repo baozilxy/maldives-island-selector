@@ -263,6 +263,12 @@ body {
   transform: translateY(-1px);
   border-color: #c8c7c0;
 }
+.island-card .photo-area.photo-img {
+  background-size: cover !important;
+  background-position: center !important;
+  color: transparent;
+  font-size: 0;
+}
 .island-card .photo-area {
   width: 180px;
   min-height: 160px;

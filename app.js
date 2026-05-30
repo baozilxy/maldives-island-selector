@@ -18,8 +18,16 @@ let filters = {
   quickTag: ''
 };
 
-// 首字母背景 — 统一深色
+// 图片 fallback 背景色
 const PHOTO_BG = '#2c2c2c';
+
+/** 生成 photo-area HTML：有图显示图，无图显示首字母 */
+function photoAreaHTML(island) {
+  if (island.照片) {
+    return `<div class="photo-area photo-img" style="background-image:url(${island.照片});background-size:cover;background-position:center;"></div>`;
+  }
+  return `<div class="photo-area" style="background:${PHOTO_BG}">${island.name.charAt(0)}</div>`;
+}
 
 // ===== 初始化 =====
 async function init() {
@@ -127,9 +135,7 @@ function renderIslands(islands) {
 
     return `
       <div class="island-card" onclick="showDetail('${island.id}')">
-        <div class="photo-area" style="background:${PHOTO_BG}">
-          ${island.name.charAt(0)}
-        </div>
+        ${photoAreaHTML(island)}
         <div class="card-body">
           <div class="card-top">
             <div>
@@ -169,6 +175,7 @@ function showDetail(id) {
 
   body.innerHTML = `
     <button class="modal-close" onclick="closeDetail()">✕</button>
+    ${island.照片 ? `<div style="width:100%;height:200px;background:url('${island.照片}') center/cover no-repeat;margin-bottom:20px;"></div>` : ''}
     <h2 style="font-size:18px;font-weight:400;margin-bottom:2px;letter-spacing:0.05em;">${island.name}</h2>
     <div style="color:#b8b7b0;font-size:12px;letter-spacing:2px;margin-bottom:16px;">
       ${'☆'.repeat(Math.floor(parseFloat(island.评分)/2))} ${island.评分}
