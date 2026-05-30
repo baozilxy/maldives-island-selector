@@ -9,7 +9,7 @@ import os
 import sys
 from datetime import datetime
 
-DATA_FILE = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data.json')
+DATA_FILE = os.path.join(os.path.dirname(__file__), 'data.json')
 
 
 def update_data():
