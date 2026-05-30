@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>马尔代夫 · 选岛助手</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="header">
+    <h1>马尔代夫<span> · 选岛助手</span></h1>
+    <p>多维筛选 · 银河摄影 · 数据每日更新</p>
+  </div>
+
+  <div class="main-container">
+    <!-- ===== 筛选面板 ===== -->
+    <div class="filter-panel">
+      <h2>筛选条件</h2>
+
+      <!-- 预算 -->
+      <div class="filter-group">
+        <div class="filter-label">预算（CNY/晚）</div>
+        <div class="price-inputs">
+          <input type="number" id="priceMin" placeholder="最低" min="0">
+          <span>—</span>
+          <input type="number" id="priceMax" placeholder="最高" min="0">
+        </div>
+      </div>
+
+      <!-- 日期 -->
+      <div class="filter-group">
+        <div class="filter-label">出行日期</div>
+        <input type="date" id="dateInput" class="date-input">
+        <div id="galaxyPreview" class="galaxy-preview">选择出行日期查看银河拍摄条件</div>
+      </div>
+
+      <!-- 星级 -->
+      <div class="filter-group">
+        <div class="filter-label">岛屿等级</div>
+        <div class="tag-group">
+          <span class="tag" data-filter="star" data-value="4星">4星</span>
+          <span class="tag" data-filter="star" data-value="5星">5星</span>
+          <span class="tag" data-filter="star" data-value="5星豪华">豪华</span>
+        </div>
+      </div>
+
+      <!-- 浮潜 -->
+      <div class="filter-group">
+        <div class="filter-label">浮潜等级</div>
+        <div class="tag-group">
+          <span class="tag" data-filter="snorkel" data-value="A">A级</span>
+          <span class="tag" data-filter="snorkel" data-value="B">B级</span>
+          <span class="tag" data-filter="snorkel" data-value="C">C级</span>
+        </div>
+      </div>
+
+      <!-- 沙滩 -->
+      <div class="filter-group">
+        <div class="filter-label">沙滩等级</div>
+        <div class="tag-group">
+          <span class="tag" data-filter="beach" data-value="A">A级</span>
+          <span class="tag" data-filter="beach" data-value="B">B级</span>
+          <span class="tag" data-filter="beach" data-value="C">C级</span>
+        </div>
+      </div>
+
+      <!-- 上岛方式 -->
+      <div class="filter-group">
+        <div class="filter-label">上岛方式</div>
+        <div class="tag-group">
+          <span class="tag" data-filter="transfer" data-value="快艇">快艇</span>
+          <span class="tag" data-filter="transfer" data-value="水上飞机">水飞</span>
+          <span class="tag" data-filter="transfer" data-value="国内航班+快艇">国内+快艇</span>
+        </div>
+      </div>
+
+      <!-- 适合人群 -->
+      <div class="filter-group">
+        <div class="filter-label">适合人群</div>
+        <div class="tag-group">
+          <span class="tag" data-filter="crowd" data-value="蜜月">蜜月</span>
+          <span class="tag" data-filter="crowd" data-value="情侣">情侣</span>
+          <span class="tag" data-filter="crowd" data-value="亲子">亲子</span>
+          <span class="tag" data-filter="crowd" data-value="朋友">朋友</span>
+          <span class="tag" data-filter="crowd" data-value="独自">独自</span>
+        </div>
+      </div>
+
+      <!-- 摄影 -->
+      <div class="filter-group">
+        <div class="filter-label">摄影相关</div>
+        <div style="display:flex;flex-direction:column;gap:2px;">
+          <label class="filter-checkbox" id="galaxyCheck">
+            <input type="checkbox" id="galaxyOnly">
+            仅显示可拍银河
+          </label>
+          <label class="filter-checkbox" id="droneCheck">
+            <input type="checkbox" id="droneOnly">
+            允许携带无人机
+          </label>
+        </div>
+      </div>
+
+      <!-- 餐饮 -->
+      <div class="filter-group">
+        <div class="filter-label">餐饮计划</div>
+        <div class="tag-group">
+          <span class="tag" data-filter="meal" data-value="BB">含早</span>
+          <span class="tag" data-filter="meal" data-value="HB">早晚餐</span>
+          <span class="tag" data-filter="meal" data-value="AI">全包</span>
+        </div>
+      </div>
+
+      <button class="reset-btn" id="resetBtn">重置筛选</button>
+      <div class="match-count" id="matchCount">匹配 <strong>0</strong> 个岛屿</div>
+    </div>
+
+    <!-- ===== 右侧内容 ===== -->
+    <div class="content-area">
+      <!-- 快捷推荐 -->
+      <div class="quick-tags">
+        <span class="qlabel">推荐</span>
+        <span data-quick="honeymoon">蜜月</span>
+        <span data-quick="photo">摄影</span>
+        <span data-quick="family">亲子</span>
+        <span data-quick="value">性价比</span>
+        <span data-quick="snorkel">浮潜</span>
+      </div>
+
+      <!-- 岛屿列表 -->
+      <div class="island-list" id="islandList">
+        <div class="no-result">
+          <div class="icon">○</div>
+          <h3>正在加载</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 详情模态框 ===== -->
+  <div class="modal-overlay" id="detailModal">
+    <div class="modal" id="detailBody"></div>
+  </div>
+
+  <script src="astro.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
